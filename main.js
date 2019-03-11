@@ -33,13 +33,16 @@ function ucitajPodatke(){
 });
 }
 
-
-
-
 forma.addEventListener('submit', function(event){
     event.preventDefault(); 
     ucitajPodatke();
 });
 
-
 dugme.addEventListener('click', ucitajPodatke);
+
+
+function myFunction() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "file");
+    document.body.appendChild(x);
+  }
