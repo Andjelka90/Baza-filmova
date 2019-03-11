@@ -7,29 +7,29 @@ $(document).ready(function(){
 
 // VARIJABLE 
 
-const naslovPesme = document.getElementById('title');
-const tekstPesme = document.getElementById('lyrics');
+const naslovFilma = document.getElementById('title');
+
 const forma = document.getElementById('forma');
-const trazeniIzvodjac = document.getElementById('trazeni-izvodjac');
-const trazenaPesma = document.getElementById('trazena-pesma');
+const nazivFilma = document.getElementById('naziv filma');
+const dugme = document.getElementById('dugme');
 
 
 //FUNKCIJE
 
 function ucitajPodatke(){
-    const izvodjac = trazeniIzvodjac.value;
-    const pesma = trazenaPesma.value;
-    naslovPesme.innerText = izvodjac + ' - ' + pesma;     
+    const naslov = nazivFilma.value;
+    
+    naslovFilma.innerText = naslov + ' - ' +;     
       
-    const url = `https://api.lyrics.ovh/v1/${izvodjac}/${pesma}`;    
+    const url = `https://api.lyrics.ovh/v1/${naslov}`;    
     //console.log(url);    
     fetch(url)
     
     .then(response => response.json())
     
     .then(objekat => {
-        naslovPesme.innerText = izvodjac + ' - ' + pesma;
-        tekstPesme.innerText = objekat.lyrics ? objekat.lyrics : "Ne postoji tekst za traženu pesmu. Pokušajte ponovo!"
+        naslovFilma.innerText = naslov + ' - ';
+        // tekstPesme.innerText = objekat.lyrics ? objekat.lyrics : "Ne postoji tekst za traženu pesmu. Pokušajte ponovo!"
 });
 }
 
