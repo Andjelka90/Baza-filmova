@@ -35,6 +35,7 @@ function ucitajPodatke(){
 
 
 
+
 forma.addEventListener('submit', function(event){
     event.preventDefault(); 
     ucitajPodatke();
