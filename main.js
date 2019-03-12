@@ -1,8 +1,8 @@
-$(document).ready(function () {
-  $("#click").click(function () {
-    $("p").toggle();
-  });
-});
+// $(document).ready(function () {
+//   $("#click").click(function () {
+//     $("p").toggle();
+//   });
+// });
 
 
 // VARIJABLE 
@@ -30,8 +30,8 @@ $(document).ready(function () {
   // .then(objekat => {
   //     naslovFilma.innerText = naslov + ' - ';
   // tekstPesme.innerText = objekat.lyrics ? objekat.lyrics : "Ne postoji tekst za traženu pesmu. Pokušajte ponovo!"
-});
-}
+//});
+//}
 
 // forma.addEventListener('submit', function (event) {
 //   event.preventDefault();
@@ -41,11 +41,11 @@ $(document).ready(function () {
 // dugme.addEventListener('click', ucitajPodatke);
 
 
-function myFunction() {
-  var x = document.createElement("INPUT");
-  x.setAttribute("type", "file");
-  document.body.appendChild(x);
-}
+//function myFunction() {
+  //var x = document.createElement("INPUT");
+  //x.setAttribute("type", "file");
+  //document.body.appendChild(x);
+//}
 
 
 fetch('https://baza-filmova.herokuapp.com/filmovi/')
