@@ -1,80 +1,106 @@
-// $(document).ready(function () {
-//   $("#click").click(function () {
-//     $("p").toggle();
-//   });
-// });
-
-
-// VARIJABLE 
-
-// const naslovFilma = document.getElementById('title');
-
-// const forma = document.getElementById('forma');
-// const nazivFilma = document.getElementById('naziv filma');
-// const dugme = document.getElementById('dugme');
-
-
-//FUNKCIJE
-
-// function ucitajPodatke() {
-//   const naslov = nazivFilma.value;
-
-//   naslovFilma.innerText = naslov + ' - ' +;
-
-//   const url = `https://baza-filmova.herokuapp.com/filmovi/${naslov}`;
-  //console.log(url);    
-  // fetch(url)
-
-  //   .then(response => response.json())
-
-  // .then(objekat => {
-  //     naslovFilma.innerText = naslov + ' - ';
-  // tekstPesme.innerText = objekat.lyrics ? objekat.lyrics : "Ne postoji tekst za traženu pesmu. Pokušajte ponovo!"
-//});
-//}
-
-// forma.addEventListener('submit', function (event) {
-//   event.preventDefault();
-//   ucitajPodatke();
-// });
-
-// dugme.addEventListener('click', ucitajPodatke);
-
-
-//function myFunction() {
-  //var x = document.createElement("INPUT");
-  //x.setAttribute("type", "file");
-  //document.body.appendChild(x);
-//}
-
-
-fetch('https://baza-filmova.herokuapp.com/filmovi/')
-  .then()
-
-
-
 const prikaz = document.getElementById('prikaz')
-const kriterij = document.getElementById('kriterij')
+const kriterijum = document.getElementById('kriterijum')
+
+const godinaUp = document.getElementById('godina-gore')
+const godinaDown = document.getElementById('godina-dole')
+const naslovUp = document.getElementById('naslov-gore')
+const naslovDown = document.getElementById('naslov-dole')
+
 
 let sviFilmovi = []
 let rezultati = []
 
+function uporediGG(a, b) {
+  if (a.godina < b.godina)
+    return -1;
+  if (a.godina > b.godina)
+    return 1;
+  return 0;
+}
+
+function uporediGD(b, a) {
+  if (a.godina < b.godina)
+    return -1;
+  if (a.godina > b.godina)
+    return 1;
+  return 0;
+}
+
+function uporediNG(a, b) {
+  if (a.naziv < b.naziv)
+    return -1;
+  if (a.naziv > b.naziv)
+    return 1;
+  return 0;
+}
+
+function uporediND(b, a) {
+  if (a.naziv < b.naziv)
+    return -1;
+  if (a.naziv > b.naziv)
+    return 1;
+  return 0;
+}
+
+function prikazi(rezultati) {
+  stringUpis = ""
+  const limit = rezultati.length >= 14 ? 14 : rezultati.length
+  for (let i = 0; i < limit; i++) {
+    stringUpis += ` <div class= "filmski-div">
+    <h3 class= "naslov-filma">${rezultati[i].naziv}</h3> 
+    <p> Godina : ${rezultati[i].godina}</p> 
+     <img src=${rezultati[i].slika} alt="" class="slike">
+        </div> `
+  }
+  prikaz.innerHTML = stringUpis
+}
+
+
 function render(niz) {
   let sablon = ''
-  for (var i = 0; i < niz.length; i++) {
-    sablon += `<h3>${niz[i].naziv}</h3>`
+  const limit = niz.length >= 14 ? 14 : niz.length
+  for (var i = 0; i < limit; i++) {
+    sablon += ` <div class= "filmski-div">
+            <h3 class= "naslov-filma">${niz[i].naziv}</h3> 
+            <p> Godina : ${niz[i].godina}</p> 
+             <img src=${niz[i].slika} alt="" class="slike">
+                </div> `
   }
+  
   prikaz.innerHTML = sablon
 }
 
 fetch('https://baza-filmova.herokuapp.com/filmovi/ ')
   .then(res => res.json())
   .then(data => {
+      console.log(data)
     sviFilmovi = rezultati = data
     render(rezultati)
   })
 
-kriterij.addEventListener('input', function () {
-  rezultati = sviFilmovi.filter(film => film.naziv.includes(kriterij.value))
+  kriterijum.addEventListener('input', function() {
+  rezultati = sviFilmovi.filter(film => film.naziv.includes(kriterijum.value))
+
   render(rezultati)
+})
+
+
+godinaUp.addEventListener("click", function() {
+  rezultati.sort(uporediGG)
+  prikazi(rezultati)
+})
+
+godinaDown.addEventListener("click", function() {
+  rezultati.sort(uporediGD)
+  prikazi(rezultati)
+})
+
+naslovUp.addEventListener("click", function () {
+  rezultati.sort(uporediNG)
+  prikazi(rezultati)
+})
+
+naslovDown.addEventListener("click", function () {
+  rezultati.sort(uporediND)
+  prikazi(rezultati)
 })
